@@ -4,21 +4,6 @@ export const useForm = (initialForm, validateInput, actionForm) => {
     const [form, setForm] = useState(initialForm);
     const [errors, setErrors] = useState({});
 
-    const validateFormSubmit = (errorsState, $form) => {
-        const errorsProcess = JSON.parse(JSON.stringify(errorsState));
-
-        Array.from($form).filter(el => (el instanceof HTMLInputElement) && el.name).forEach(el => Object.assign(errorsProcess, validateInput(errorsState, el)));
-
-        if (Object.keys(errorsProcess).length === 0) {
-            actionForm($form);
-            setForm(initialForm);
-        } else {
-            $form[Object.keys(errorsProcess)[0]].focus();
-        }
-
-        return errorsProcess
-    }
-
     const handlerChange = (e) => {
         const { name, value } = e.target;
 
@@ -26,12 +11,24 @@ export const useForm = (initialForm, validateInput, actionForm) => {
             ...form,
             [name]: value
         });
-        setErrors(errorsState => validateInput(errorsState, e.target));
+        setErrors(validateInput(value, name));
     }
 
     const handlerSubmit = e => {
         e.preventDefault();
-        setErrors(errorsState => validateFormSubmit(errorsState, e.target))
+
+        const errorsSubmit = JSON.parse(JSON.stringify(errors));
+
+        Array.from(e.target).filter(el => (el instanceof HTMLInputElement) && el.name).forEach(el => Object.assign(errorsSubmit, validateInput(el.value, el.name)));
+
+        setErrors(errorsSubmit);
+
+        if (Object.keys(errorsSubmit).length === 0) {
+            actionForm(e.target);
+            setForm(initialForm);
+        } else {
+            e.target[Object.keys(errorsSubmit)[0]].focus();
+        }
     }
 
     return {

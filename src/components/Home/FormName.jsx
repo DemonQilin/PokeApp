@@ -11,16 +11,16 @@ const FormName = () => {
         username: ''
     }
     
-    const validateInput = (errorsState, input) => {
-        const errorsProcess = JSON.parse(JSON.stringify(errorsState));
+    const validateInput = (valueInput, nameInput) => {
+        const errorsProcess = JSON.parse(JSON.stringify(errors));
         const regexpName = /^[A-Za-z0-9ÑñÁáÉéÍíÓóÚúÜü]{4,15}$/;
 
-        if (!input.value) {
+        if (!valueInput) {
             errorsProcess.username = 'Debes ingresar tu nombre para continuar!'
-        } else if (!regexpName.test(input.value)) {
+        } else if (!regexpName.test(valueInput)) {
             errorsProcess.username = 'El nombre solo debe contener letras y números. Mínimo 4 y máximo 15 carácteres'
         } else {
-            delete errorsProcess[input.name]
+            delete errorsProcess[nameInput]
         }
 
         return errorsProcess
