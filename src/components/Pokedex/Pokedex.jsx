@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
 import { usePagination } from '../../hooks/usePagination';
 import { getPokemons } from '../../store/reducers/pokemons.slice';
 import Pagination from '../Pagination/Pagination';
 import PokemonCard from '../PokemonCard/PokemonCard';
+import FormType from './FormType';
 
 const Pokedex = ({ userName }) => {
     const dispatch = useDispatch();
@@ -12,12 +13,13 @@ const Pokedex = ({ userName }) => {
         dispatch(getPokemons('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=1154'));
     }, [dispatch]);
 
-    const { currentPage, setCurrentPage, viewPokemons, quantityPages, pages, currentBlock,setCurrentBlock, pagesPerBlock } = usePagination();
+    const { currentPage, setCurrentPage, viewPokemons, quantityPages, pages, currentBlock, setCurrentBlock, pagesPerBlock } = usePagination();
 
     return (
         <section className="Pokedex">
             <h1>Pokedex</h1>
             <p>Entrenador {userName}, aqui puedes encontrar tu pokemon favorito.</p>
+            <FormType/>
             <Pagination
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
@@ -28,7 +30,7 @@ const Pokedex = ({ userName }) => {
                 pagesPerBlock={pagesPerBlock}
             />
             <section className='Pokedex__container'>
-                {viewPokemons?.map(pokemon => <PokemonCard key={pokemon.url} url={pokemon.url} />)}
+                {viewPokemons?.map(pokemon => <PokemonCard key={pokemon.url ? pokemon.url : pokemon.pokemon.url} url={pokemon.url ? pokemon.url : pokemon.pokemon.url} />)}
             </section>
             <Pagination
                 currentPage={currentPage}

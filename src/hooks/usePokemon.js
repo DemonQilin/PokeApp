@@ -6,9 +6,12 @@ const usePokemon = url => {
 
     useEffect(() => {
         axios.get(url)
-            .then(res => setPokemon(res.data))
+            .then(res => {
+                res.data.name = res.data.name.replace(res.data.name[0], res.data.name[0].toUpperCase());
+                setPokemon(res.data);
+            })
             .catch(err => console.log(err))
-    }, [])
+    }, []);
     
     return pokemon;
 }

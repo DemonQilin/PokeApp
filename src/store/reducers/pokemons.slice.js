@@ -9,9 +9,9 @@ const pokemonsSlice = createSlice({
     }
 });
 
-export const getPokemons = (url, type) => async dispatch => {
+export const getPokemons = (url, typeRequest) => async dispatch => {
     try {
-        const data = await axios.get(url).then(res => type ? res.data.pokemon : res.data.results);
+        const data = await axios.get(url).then(res => typeRequest ? res.data.pokemon : res.data.results);
         return dispatch(setGlobalPokemons(data));
     } catch (error) {
         console.log(error)
