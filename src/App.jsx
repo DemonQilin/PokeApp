@@ -1,5 +1,4 @@
 import Home from './components/Home/Home'
-import './App.css'
 import Pokedex from './components/Pokedex/Pokedex'
 import ProtectedRoutes from './components/ProtectedRoutes/ProtectedRoutes'
 import { useSelector } from 'react-redux'

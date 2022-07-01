@@ -1,8 +1,8 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useForm } from '../../hooks/useForm'
-import { setGlobalUser } from '../../store/reducers/userName'
-
+import { setGlobalUser } from '../../store/reducers/userName';
+import './FormName.css'
 
 const FormName = () => {
     const dispatch = useDispatch();
@@ -36,16 +36,21 @@ const FormName = () => {
         <form
             onSubmit={handlerSubmit}
             className="Home_FormName"
-            autoComplete='off'>
+            autoComplete='off'
+        >
             <input
                 type="text"
                 name="username"
                 placeholder='Escribe tu nombre'
                 value={form.username}
                 onChange={handlerChange}
+                className='FormName__input'
             />
-            {errors.username && <p>{errors.username}</p>}
-            <input type="submit" value="Comenzar aventura" />
+            {errors.username && <p className='FormName__Error'>{errors.username}</p>}
+            <input
+                type="submit" value="Comenzar aventura"
+                className='FormName__input FormName__input--submit'
+            />
         </form>
     )
 }

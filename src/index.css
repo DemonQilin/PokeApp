@@ -1,11 +1,12 @@
 *,
 *::after,
-*::before{
+*::before {
   box-sizing: border-box;
 }
 
 html {
-  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif;
+  font-size: 62.5%;
 }
 
 body {
