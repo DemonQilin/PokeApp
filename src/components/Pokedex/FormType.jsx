@@ -1,13 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '../../hooks/useForm';
-import { getPokemons } from '../../store/reducers/pokemons.slice';
+import { getPokemons, setGlobalViewPokemons } from '../../store/reducers/viewPokemons.slice';
 
 const FormType = () => {
     const [types, setTypes] = useState();
     const dispatch = useDispatch();
     const $select = useRef();
+    const pokemons = useSelector(store => store.pokemons);
 
     useEffect(() => {
         axios.get('https://pokeapi.co/api/v2/type/')
@@ -22,15 +23,19 @@ const FormType = () => {
             .catch(error => console.log(error))
     }, []);
 
-    
-    
-    const { form, handlerChange, handlerSubmit } = useForm({ type: 'Todos' }, () => { return {} });
+    const { form, handlerChange } = useForm({ type: 'Todos' }, () => { return {} });
 
     useEffect(() => {
         const type = types?.find(el => el.name === form.type);
 
-        if (type) dispatch(getPokemons(type.url, type.name !== 'Todos'));
         $select.current.blur();
+        if (type) {
+            if (type.name === 'Todos') {
+                dispatch(setGlobalViewPokemons(pokemons));
+            } else {
+                dispatch(getPokemons(type.url))
+            }
+        }
     }, [form]);
     
     return (

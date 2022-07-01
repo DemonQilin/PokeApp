@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useSelector } from "react-redux";
 
 export const usePagination = () => {
-    const pokemons = useSelector(store => store.pokemons);
+    const pokemons = useSelector(store => store.viewPokemons);
     const [currentPage, setCurrentPage] = useState(1);
     const [currentBlock, setCurrentBlock] = useState(1);
     

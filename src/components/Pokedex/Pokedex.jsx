@@ -1,16 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { usePagination } from '../../hooks/usePagination';
-import { getPokemons } from '../../store/reducers/pokemons.slice';
+import { getPokemons } from '../../store/reducers/viewPokemons.slice';
 import Pagination from '../Pagination/Pagination';
 import PokemonCard from '../PokemonCard/PokemonCard';
+import FormSearch from './FormSearch';
 import FormType from './FormType';
 
 const Pokedex = ({ userName }) => {
     const dispatch = useDispatch();
+    const [search, setSearch] = useState();
     
     useEffect(() => {
-        dispatch(getPokemons('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=1154'));
+        dispatch(getPokemons('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=1154', true));
     }, [dispatch]);
 
     const { currentPage, setCurrentPage, viewPokemons, quantityPages, pages, currentBlock, setCurrentBlock, pagesPerBlock } = usePagination();
@@ -19,7 +21,9 @@ const Pokedex = ({ userName }) => {
         <section className="Pokedex">
             <h1>Pokedex</h1>
             <p>Entrenador {userName}, aqui puedes encontrar tu pokemon favorito.</p>
-            <FormType/>
+            <FormSearch setSearch={setSearch} />
+            <FormType />
+            {/* {search && <p>Resultados para búsqueda de "{search}"</p>} */}
             <Pagination
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
