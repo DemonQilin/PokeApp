@@ -1,0 +1,54 @@
+.Pokedex {
+    --color-background: #fff;
+    --legth: 25vmin;
+
+    position: relative;
+    z-index: 0;
+    
+    height: 100vh;
+    min-width: 320px;
+    padding: 5rem 2rem 3rem;
+
+    overflow: hidden;
+    background-color: var(--color-background);
+}
+
+.Pokedex__title {
+    margin: 0;
+
+    font-size: 3rem;
+}
+
+.Pokedex__message {
+    margin: 1rem 0 0;
+
+    font-size: 1.5rem;
+}
+
+.Pokedex__message span {
+    font-weight: bold;
+
+    color: #ff3962;
+}
+
+.Pokedex__filtro {
+    position: absolute;
+    bottom: 3rem;
+    right: 2rem;
+
+    width: 5rem;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    font-size: 2.5rem;
+
+    background-color: #ff3962;
+    color: #fff;
+    border-radius: 50%;
+    border: none;
+
+    cursor: pointer;
+}

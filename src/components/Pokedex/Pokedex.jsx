@@ -1,28 +1,34 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useRef, useState } from 'react';
 import { usePagination } from '../../hooks/usePagination';
-import { getPokemons } from '../../store/reducers/viewPokemons.slice';
 import Pagination from '../Pagination/Pagination';
 import PokemonCard from '../PokemonCard/PokemonCard';
-import FormSearch from './FormSearch';
-import FormType from './FormType';
+import Pokeball from '../visualComponents/Pokeball';
+import FormsPokedex from './FormsPokedex';
+import './Pokedex.css';
 
 const Pokedex = ({ userName }) => {
-    const dispatch = useDispatch();
     const [search, setSearch] = useState();
-    
-    useEffect(() => {
-        dispatch(getPokemons('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=1154', true));
-    }, [dispatch]);
+    const [viewForms, setViewForms] = useState();
+    const $forms = useRef();
+    const handlerViewForms = () => {
+        if (viewForms) {
+            $forms.current.classList.remove('Pokedex__forms--active');
+            return setTimeout(setViewForms, 300, false)
+        }
+        return setViewForms(true);
+    }
 
     const { currentPage, setCurrentPage, viewPokemons, quantityPages, pages, currentBlock, setCurrentBlock, pagesPerBlock } = usePagination();
 
     return (
         <section className="Pokedex">
-            <h1>Pokedex</h1>
-            <p>Entrenador {userName}, aqui puedes encontrar tu pokemon favorito.</p>
-            <FormSearch setSearch={setSearch} />
-            <FormType />
+            <h1 className='Pokedex__title'>Pokedex</h1>
+            <p className='Pokedex__message'>Bienvenido <span>{userName}</span>, aqui puedes encontrar tu pokemon favorito.</p>
+            <Pokeball />
+            {viewForms && <FormsPokedex $forms={$forms} setSearch={setSearch} setViewForms={setViewForms} />}
+            <button className="Pokedex__filtro" onClick={e => handlerViewForms()}>
+                <i className={viewForms ? "fa-solid fa-xmark" : "fa-solid fa-sliders"}></i>
+            </button>
             {/* {search && <p>Resultados para búsqueda de "{search}"</p>} */}
             <Pagination
                 currentPage={currentPage}

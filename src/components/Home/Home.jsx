@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Navigate } from 'react-router'
 import FormName from './FormName'
 import './Home.css'
@@ -31,20 +32,18 @@ const Home = ({ userName }) => {
             1500: 'https://i.imgur.com/uFKtpL8.png',
         }
     ];
-
     const [visibleWallpaper, setVisibleWallpaper] = useState(0);
 
     useEffect(() => {
         const animationWallpaper = setInterval(() => {
-            console.log(visibleWallpaper);
             setVisibleWallpaper(visibleWallpaper => {
                 if (visibleWallpaper === wallpapers.length - 1) return 0;
                 return visibleWallpaper + 1;
             });
         }, 4000);
 
-        () => clearInterval(animationWallpaper);
-    }, [])
+        return () => clearInterval(animationWallpaper);
+    }, []);
 
     return (
         <div className='Home'>

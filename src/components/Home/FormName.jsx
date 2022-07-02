@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useForm } from '../../hooks/useForm'
 import { setGlobalUser } from '../../store/reducers/userName';
@@ -6,7 +6,7 @@ import './FormName.css'
 
 const FormName = () => {
     const dispatch = useDispatch();
-
+    const [inputFocus, setInputFocus] = useState(false);
     const initialForm = {
         username: ''
     }
@@ -32,6 +32,10 @@ const FormName = () => {
 
     const { form, errors, handlerChange, handlerSubmit } = useForm(initialForm, validateInput, actionForm);
 
+    useEffect(() => {
+        
+    })
+
     return (
         <form
             onSubmit={handlerSubmit}
@@ -44,12 +48,15 @@ const FormName = () => {
                 placeholder='Escribe tu nombre'
                 value={form.username}
                 onChange={handlerChange}
+                onFocus={e => setInputFocus(true)}
+                onBlur={e => setInputFocus(false)}
                 className='FormName__input'
             />
-            {errors.username && <p className='FormName__Error'>{errors.username}</p>}
+            {inputFocus && errors.username && <p className='FormName__Error'>{errors.username}</p>}
             <input
                 type="submit" value="Comenzar aventura"
                 className='FormName__input FormName__input--submit'
+                title='Registrar nombre'
             />
         </form>
     )
