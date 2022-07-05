@@ -1,5 +1,4 @@
 .FormType {
-    --action: 0;
     position: absolute;
     bottom: 0;
     left: 50%;
@@ -22,7 +21,6 @@
 
     transform: translate(-50%,100%);
     transition: transform 0.3s ease-in;
-    /* animation: getInType 0.3s ease-in 1 forwards; */
 }
 
 @keyframes getInType {

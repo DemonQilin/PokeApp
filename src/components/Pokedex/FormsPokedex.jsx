@@ -31,7 +31,7 @@ const FormsPokedex = ({ $forms, setSearch, setViewForms }) => {
                 <div className="Pokedex_forms_pokeball_rectangle"></div>
                 </div>
             </button>}
-            {viewSearch && <FormSearch setSearch={setSearch} setViewForms={setViewForms} />}
+            {viewSearch && <FormSearch setSearch={setSearch} setViewSearch={setViewSearch} setViewForms={setViewForms} />}
             {viewType && <FormType setViewType={setViewType} setViewForms={setViewForms} />}
         </div>
     )

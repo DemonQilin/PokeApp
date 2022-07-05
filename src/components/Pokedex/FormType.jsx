@@ -21,7 +21,6 @@ const FormType = ({ setViewType, setViewForms }) => {
 
         const viewType = (e) => {
             if (e.target === $select.current) {
-                console.log('viewType');
                 $form.current.classList.remove('getInType');
                 setTimeout(setViewForms, 300, false);
             }
