@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import './Pagination.css'
 
 const Pagination = ({ currentPage, setCurrentPage, quantityPages, currentBlock,pages, setCurrentBlock, pagesPerBlock}) => {
 
@@ -41,22 +42,23 @@ const Pagination = ({ currentPage, setCurrentPage, quantityPages, currentBlock,p
     const changePageTo = n => { setCurrentPage(n), setCurrentBlock(Math.ceil(n / pagesPerBlock)) };
 
     return (
-        <div className='pagination-container'>
-            <div onClick={prevPage} className='pagination-prev-next'>&#60;</div>
-            <button onClick={prevBlock}>...</button>
-            <ul className='pagination-number-container'>
+        <div className='Pagination__container'>
+            <button onClick={prevPage} className='Pagination__Ctrls Pagination__Ctrls--page' title='Pagina Anterior'>&#60;</button>
+            <button onClick={prevBlock} className='Pagination__Ctrls Pagination__Ctrls--block' title='Cargar páginas anteriores'>...</button>
+            <ul className='Pagination__NumberContainer'>
                 {
                     pages?.map(num => (
                         <li
                             onClick={() => changePageTo(num)}
                             key={num}
-                            className={currentPage === num ? `page-number page-active` : `page-number`}
+                            className={currentPage === num ? `Page__number Page__active` : `Page__number`}
+                            title={`Ir a página ${num}`}
                         >{num}</li>
                     ))
                 }
             </ul>
-            <button onClick={nextBlock}>...</button>
-            <div onClick={nextPage} className='pagination-prev-next'>&#62;</div>
+            <button onClick={nextBlock} className="Pagination__Ctrls Pagination__Ctrls--block" title='Cargar más páginas'>...</button>
+            <button onClick={nextPage} className='Pagination__Ctrls Pagination__Ctrls--page' title='Pagina siguiente'>&#62;</button>
         </div>
     )
 }
