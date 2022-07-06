@@ -5,6 +5,7 @@ import PokemonCard from '../PokemonCard/PokemonCard';
 import Pokeball from '../visualComponents/Pokeball';
 import FormsPokedex from './FormsPokedex';
 import './Pokedex.css';
+import '../PokemonCard/PokemonCard.css'
 
 const Pokedex = ({ userName }) => {
     const [search, setSearch] = useState();
@@ -25,10 +26,6 @@ const Pokedex = ({ userName }) => {
             <h1 className='Pokedex__title'>Pokedex</h1>
             <p className='Pokedex__message'>Bienvenido <span>{userName}</span>, aqui puedes encontrar tu pokemon favorito.</p>
             <Pokeball />
-            {viewForms && <FormsPokedex $forms={$forms} setSearch={setSearch} setViewForms={setViewForms} />}
-            <button className="Pokedex__filtro" onClick={e => handlerViewForms()}>
-                <i className={viewForms ? "fa-solid fa-xmark" : "fa-solid fa-sliders"}></i>
-            </button>
             {/* {search && <p>Resultados para búsqueda de "{search}"</p>} */}
             <Pagination
                 currentPage={currentPage}
@@ -40,17 +37,15 @@ const Pokedex = ({ userName }) => {
                 pagesPerBlock={pagesPerBlock}
             />
             <section className='Pokedex__container'>
-                {viewPokemons?.map(pokemon => <PokemonCard key={pokemon.url ? pokemon.url : pokemon.pokemon.url} url={pokemon.url ? pokemon.url : pokemon.pokemon.url} />)}
+                {viewPokemons?.map(pokemon => (<PokemonCard
+                    key={pokemon.url ? pokemon.url : pokemon.pokemon.url}
+                    url={pokemon.url ? pokemon.url : pokemon.pokemon.url}
+                />))}
             </section>
-            <Pagination
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                quantityPages={quantityPages}
-                pages={pages}
-                currentBlock={currentBlock}
-                setCurrentBlock={setCurrentBlock}
-                pagesPerBlock={pagesPerBlock}
-            />
+            {viewForms && <FormsPokedex $forms={$forms} setSearch={setSearch} setViewForms={setViewForms} setCurrentPage={setCurrentPage} />}
+            <button className="Pokedex__filtro" onClick={e => handlerViewForms()}>
+                <i className={viewForms ? "fa-solid fa-xmark" : "fa-solid fa-sliders"}></i>
+            </button>
         </section>
     )
 }

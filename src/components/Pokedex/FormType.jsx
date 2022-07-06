@@ -5,7 +5,7 @@ import { setGlobalFilterPokemon } from '../../store/reducers/filterPokemons.slic
 import { getPokemons, setGlobalViewPokemons } from '../../store/reducers/viewPokemons.slice';
 import './FormType.css';
 
-const FormType = ({ setViewType, setViewForms }) => {
+const FormType = ({ setViewType, setViewForms, setCurrentPage }) => {
     const dispatch = useDispatch();
     const $form = useRef();
     const $select = useRef();
@@ -46,6 +46,7 @@ const FormType = ({ setViewType, setViewForms }) => {
                         dispatch(getPokemons(type.url))
                     }
                 }
+                setCurrentPage(1);
             }
         }
 

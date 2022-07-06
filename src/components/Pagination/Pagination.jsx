@@ -44,7 +44,7 @@ const Pagination = ({ currentPage, setCurrentPage, quantityPages, currentBlock,p
     return (
         <div className='Pagination__container'>
             <button onClick={prevPage} className='Pagination__Ctrls Pagination__Ctrls--page' title='Pagina Anterior'>&#60;</button>
-            <button onClick={prevBlock} className='Pagination__Ctrls Pagination__Ctrls--block' title='Cargar páginas anteriores'>...</button>
+            {!(currentBlock === 1) && <button onClick={prevBlock} className='Pagination__Ctrls Pagination__Ctrls--block' title='Cargar páginas anteriores'>...</button>}
             <ul className='Pagination__NumberContainer'>
                 {
                     pages?.map(num => (
@@ -57,7 +57,7 @@ const Pagination = ({ currentPage, setCurrentPage, quantityPages, currentBlock,p
                     ))
                 }
             </ul>
-            <button onClick={nextBlock} className="Pagination__Ctrls Pagination__Ctrls--block" title='Cargar más páginas'>...</button>
+            {!(currentBlock === Math.ceil(quantityPages / pagesPerBlock)) && <button onClick={nextBlock} className="Pagination__Ctrls Pagination__Ctrls--block" title='Cargar más páginas'>...</button>}
             <button onClick={nextPage} className='Pagination__Ctrls Pagination__Ctrls--page' title='Pagina siguiente'>&#62;</button>
         </div>
     )

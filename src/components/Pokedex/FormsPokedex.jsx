@@ -3,7 +3,7 @@ import FormSearch from './FormSearch';
 import FormType from './FormType';
 import './FormsPokedex.css';
 
-const FormsPokedex = ({ $forms, setSearch, setViewForms }) => {
+const FormsPokedex = ({ $forms, setSearch, setViewForms, setCurrentPage}) => {
     const [viewType, setViewType] = useState();
     const [viewSearch, setViewSearch] = useState();
 
@@ -32,7 +32,7 @@ const FormsPokedex = ({ $forms, setSearch, setViewForms }) => {
                 </div>
             </button>}
             {viewSearch && <FormSearch setSearch={setSearch} setViewSearch={setViewSearch} setViewForms={setViewForms} />}
-            {viewType && <FormType setViewType={setViewType} setViewForms={setViewForms} />}
+            {viewType && <FormType setViewType={setViewType} setViewForms={setViewForms} setCurrentPage={setCurrentPage}/>}
         </div>
     )
 }
