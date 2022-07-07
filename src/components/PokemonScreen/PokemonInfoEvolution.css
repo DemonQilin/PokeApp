@@ -28,7 +28,7 @@
 .PokemonInfoEvolution__img {
     width: 200px;
 
-    animation: pokeball-spin 2s infinite ease 0.3s;
+    animation: pokeball-spin 2s infinite ease;
 }
 
 @keyframes pokeball-spin {

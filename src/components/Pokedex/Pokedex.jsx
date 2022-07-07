@@ -25,7 +25,11 @@ const Pokedex = ({ userName }) => {
 
     return (
         <section className="Pokedex">
-            <h1 className='Pokedex__title'>Pokedex</h1>
+            <h1 className='Pokedex__title'>
+                <div className="Pokedex__title__decoration Pokedex__title__decoration--right-top"></div>
+                <div className="Pokedex__title__decoration Pokedex__title__decoration--left-bottom"></div>
+                Pokedex
+            </h1>
             <p className='Pokedex__message'>Bienvenido <span>{userName}</span>, aqui puedes encontrar tu pokemon favorito.</p>
             <Pokeball />
             {/* {search && <p>Resultados para búsqueda de "{search}"</p>} */}

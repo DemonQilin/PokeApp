@@ -1,5 +1,5 @@
 .Pagination__container {
-    margin: 2rem 0;
+    margin: 2rem;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -19,13 +19,12 @@
 }
 
 .Pagination__Ctrls--page {
-    margin: 0 0.5rem;
-
     background-color: #ff3961;
     color: #fff;
 }
 
 .Pagination__Ctrls--block {
+    margin: 0 0.5rem;
     padding: 0.3rem 0.8rem;
 
     border: 2px solid transparent;
