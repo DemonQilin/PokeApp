@@ -4,6 +4,7 @@ import pokemons from './reducers/pokemons.slice';
 import viewPokemons from './reducers/viewPokemons.slice';
 import typesPokemons from './reducers/typesPokemons.slice';
 import filterPokemons from './reducers/filterPokemons.slice';
+import evolutionTriggers from './reducers/evolutionTriggers.slice';
 
 export default configureStore({
     reducer: {
@@ -12,5 +13,6 @@ export default configureStore({
         viewPokemons,
         typesPokemons,
         filterPokemons,
+        evolutionTriggers,
     }
 })

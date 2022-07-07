@@ -9,6 +9,7 @@ import { useEffect } from 'react'
 import { getTypes } from './store/reducers/typesPokemons.slice'
 import PokemonInfo from './components/PokemonScreen/PokemonInfo'
 import PokemonInfoInfo from './components/PokemonScreen/PokemonInfoInfo'
+import { getEvolutionTriggers } from './store/reducers/evolutionTriggers.slice'
 
 function App() {
   const userName = useSelector(store => store.userName);
@@ -17,6 +18,7 @@ function App() {
   useEffect(() => {
     dispatch(getPokemons('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=1154', true));
     dispatch(getTypes());
+    dispatch(getEvolutionTriggers());
   }, [dispatch]);
 
   return (
