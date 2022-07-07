@@ -3,15 +3,17 @@ import FormSearch from './FormSearch';
 import FormType from './FormType';
 import './FormsPokedex.css';
 
-const FormsPokedex = ({ $forms, setSearch, setViewForms, setCurrentPage}) => {
-    const [viewType, setViewType] = useState();
-    const [viewSearch, setViewSearch] = useState();
-
+const FormsPokedex = ({viewSearch, setViewSearch, viewType, setViewType, $forms, setSearch, setViewForms, setCurrentPage}) => {
     useEffect(() => {
         setTimeout(() => {
             $forms.current.classList.add('Pokedex__forms--active');
-        }, 0)
-    }, [])
+        }, 0);
+
+        return () => {
+            setViewSearch(false);
+            setViewType(false);
+        }
+    }, []);
 
     return (
         <div className="Pokedex__forms" ref={$forms}>

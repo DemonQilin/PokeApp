@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Navigate } from "react-router";
+import { Navigate, useLocation } from "react-router";
 import usePokemon from "../../hooks/usePokemon";
 
 const PokemonCard = ({ url }) => {
@@ -9,8 +9,9 @@ const PokemonCard = ({ url }) => {
     const $pokemonCardLoader = useRef();
     const $pokemonCardLoaderUp = useRef();
     const $pokemonCardLoaderDown = useRef();
+    const location = useLocation();
     const pokemonImage = pokemon?.sprites.other.dream_world.front_default || pokemon?.sprites.other['official-artwork'].front_default || pokemon?.sprites.other.home.front_default || 'https://i.imgur.com/dWukdOq.png';
-    const typeClass = typePokemon => {
+    const typeClass = (typePokemon => {
         switch (typePokemon) {
             case 'normal':
                 return 'PokemonCard__Normal';
@@ -53,7 +54,7 @@ const PokemonCard = ({ url }) => {
             default:
                 return 'PokemonCard__Unknown';
         }
-    }
+    })(pokemon?.types[0].type.name);
 
     useEffect(() => {
         if (!loading) $pokemonCard.current.classList.add('PokemonCard__visible');
@@ -81,7 +82,7 @@ const PokemonCard = ({ url }) => {
                     <div ref={$pokemonCardLoaderDown} className="PokemonCard__loader__down"></div>
                 </div>
             </div>}
-            {!loading && <article ref={$pokemonCard} className={`PokemonCard ${typeClass(pokemon?.types[0].type.name)}`}>
+            {!loading && <article ref={$pokemonCard} className={`PokemonCard ${typeClass}`}>
                 <h2 className="PokemonCard__title" onClick={e => setInfo(true)} title={`Ver ${pokemon?.name}`}>{pokemon?.name}</h2>
                 <div className="PokemonCard__container">
                     <ul className="PokemonCard__ListStats">
@@ -95,7 +96,7 @@ const PokemonCard = ({ url }) => {
                         </div>
                     </div>
                 </div>
-                {info && <Navigate to={`/pokedex/${pokemon?.id}`} state={{ pokemon, pokemonImage }} />}
+                {info && <Navigate to={`/pokedex/${pokemon?.id}`} state={{ pokemon, pokemonImage, typeClass, location: location.pathname}} />}
             </article>}
         </>
     )

@@ -8,8 +8,10 @@ import './Pokedex.css';
 import '../PokemonCard/PokemonCard.css'
 
 const Pokedex = ({ userName }) => {
-    const [search, setSearch] = useState();
     const [viewForms, setViewForms] = useState();
+    const [viewType, setViewType] = useState();
+    const [viewSearch, setViewSearch] = useState();
+    const [search, setSearch] = useState();
     const $forms = useRef();
     const handlerViewForms = () => {
         if (viewForms) {
@@ -42,10 +44,18 @@ const Pokedex = ({ userName }) => {
                     url={pokemon.url ? pokemon.url : pokemon.pokemon.url}
                 />))}
             </section>
-            {viewForms && <FormsPokedex $forms={$forms} setSearch={setSearch} setViewForms={setViewForms} setCurrentPage={setCurrentPage} />}
-            <button className="Pokedex__filtro" onClick={e => handlerViewForms()}>
+            {viewForms && <FormsPokedex
+                viewSearch={viewSearch}
+                setViewSearch={setViewSearch}
+                viewType={viewType}
+                setViewType={setViewType}
+                $forms={$forms}
+                setSearch={setSearch}
+                setViewForms={setViewForms}
+                setCurrentPage={setCurrentPage} />}
+            {!(viewSearch || viewType) && <button className="Pokedex__filtro" onClick={e => handlerViewForms()}>
                 <i className={viewForms ? "fa-solid fa-xmark" : "fa-solid fa-sliders"}></i>
-            </button>
+            </button>}
         </section>
     )
 }

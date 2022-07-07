@@ -3,10 +3,12 @@ import Pokedex from './components/Pokedex/Pokedex'
 import ProtectedRoutes from './components/ProtectedRoutes/ProtectedRoutes'
 import { useDispatch, useSelector } from 'react-redux'
 import { Routes, Route } from 'react-router'
-import PokemonScreen from './components/pokemonsScreen.jsx/PokemonScreen'
+import PokemonScreen from './components/PokemonScreen/PokemonScreen'
 import { getPokemons } from './store/reducers/viewPokemons.slice'
 import { useEffect } from 'react'
 import { getTypes } from './store/reducers/typesPokemons.slice'
+import PokemonInfo from './components/PokemonScreen/PokemonInfo'
+import PokemonInfoInfo from './components/PokemonScreen/PokemonInfoInfo'
 
 function App() {
   const userName = useSelector(store => store.userName);
@@ -23,7 +25,10 @@ function App() {
         <Route path='/' element={<Home userName={userName} />} />
         <Route element={<ProtectedRoutes userName={userName} />}>
           <Route path='/pokedex' element={<Pokedex userName={userName} />} />
-          <Route path='/pokedex/:id' element={<PokemonScreen/>} />
+          <Route path='/pokedex/:id' element={<PokemonScreen />}>
+            <Route index element={<PokemonInfoInfo />} />
+            <Route path=':info' element={<PokemonInfo/>}/>
+          </Route>
         </Route>
       </Routes>
     </div>
