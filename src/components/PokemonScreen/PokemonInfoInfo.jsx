@@ -3,7 +3,7 @@ import { useOutletContext } from 'react-router';
 import './PokemonInfoInfo.css';
 
 const PokemonInfoInfo = () => {
-    let pokemon = JSON.parse(JSON.stringify(useOutletContext()));
+    let { pokemon } = JSON.parse(JSON.stringify(useOutletContext()));
     const typeClass = typePokemon => {
         switch (typePokemon) {
             case 'normal':

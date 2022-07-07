@@ -1,4 +1,6 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 import { Outlet, useLocation, useNavigate } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import './PokemonScreen.css'
@@ -6,6 +8,33 @@ import './PokemonScreen.css'
 const PokemonScreen = () => {
     const { pokemon, pokemonImage, location, typeClass } = useLocation().state;
     const navigate = useNavigate();
+    const triggers = useSelector(state => state.evolutionTriggers);
+    const [evolutions, setEvolutions] = useState(undefined);
+
+    useEffect(() => {
+        if (Object.keys(pokemon.species).length === 0 || !pokemon.species) return setEvolutions(null);
+
+        const getEvolutions = async () => {
+            const evolutionsInit = {};
+            triggers.forEach(trigger => evolutionsInit[trigger] = []);
+
+            const specie = await axios.get(pokemon.species.url).then(res => res.data);
+            
+            if (Object.keys(specie.evolution_chain).length === 0 || !specie.evolution_chain) return setEvolutions(null);
+
+            const evolutionChain = await axios.get(specie.evolution_chain.url).then(res => res.data);
+            
+            if (evolutionChain.chain.evolves_to.length === 0) return setEvolutions(null);
+
+            const extractEvolutions = evolutionChain => {
+                const base = evolutionChain.species;
+
+                if (evolutionChain.evolves_to.length !== 0) return undefined;
+            }
+        }
+
+        getEvolutions();
+    }, []);
 
     return (
         <section className={`PokemonScreen ${typeClass}`}>
@@ -51,7 +80,7 @@ const PokemonScreen = () => {
                     </ul>
                 </nav>
                 <section className='PokemonScreen__main__section'>
-                    <Outlet context={pokemon}/>
+                    <Outlet context={{pokemon, evolutions}}/>
                 </section>
             </main>
         </section>

@@ -1,11 +1,12 @@
 import React from 'react'
 import { useOutletContext, useParams } from 'react-router'
+import PokemonInfoEvolution from './PokemonInfoEvolution';
 import PokemonInfoInfo from './PokemonInfoInfo';
 import PokemonInfoStats from './PokemonInfoStats';
 
 const PokemonInfo = () => {
     const { info } = useParams();
-    let pokemon = JSON.parse(JSON.stringify(useOutletContext()));
+    const { pokemon, evolutions } = JSON.parse(JSON.stringify(useOutletContext()));
 
     switch (info) {
         case 'info':
@@ -13,7 +14,7 @@ const PokemonInfo = () => {
         case 'stats':
             return <PokemonInfoStats pokemon={pokemon}/>;
         case 'evolution':
-            return <div>{info}</div>;
+            return <PokemonInfoEvolution pokemon={pokemon} evolutions={evolutions}/>;
     }
 }
 
